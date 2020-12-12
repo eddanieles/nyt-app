@@ -1,16 +1,16 @@
 <template>
   <div>
-    <!-- <input type="text" v-on:change="handleSubmit"> -->
+    <input type="text" v-on:change="handleSubmit">
     <ul>
         <li v-for="article in articles" :key="article.id">
-
+            {{article}}
         </li>
     </ul>
   </div>
 </template>
 
 <script>
-// import { getArticles } from '../services/ApiService'
+import { getArticles } from '../services/ApiService'
 
 export default {
     name: 'Home',
@@ -20,11 +20,12 @@ export default {
         }
     },
     methods: {
-        // handleSubmit(event) {
-        //     let query = event.target.value;
-        //     this.articles = getArticles(query);
-        //     console.log(this.articles)
-        // }
+        handleSubmit(event) {
+            let searchText = event.target.value;
+            getArticles(searchText).then(value => {
+                this.articles = value.data.response.docs;
+            });
+        }
     }
 
 }
