@@ -20,8 +20,10 @@ export default {
         }
     },
     methods: {
-        async handleSubmit(e) {
-           this.articles = getArticles(e.target.value);
+        handleSubmit(event) {
+            let query = event.target.value;
+            this.articles = getArticles(query);
+            console.log(this.articles)
         }
     }
 

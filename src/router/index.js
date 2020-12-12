@@ -1,13 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
+import Params from '../views/Params'
 
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
-    component: Home
-}]
+        path: '/',
+        component: Home
+    },
+    {
+        path: '/params',
+        component: Params
+    }
+]
 
 const router = new VueRouter({
     mode: 'history',
