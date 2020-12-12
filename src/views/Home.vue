@@ -2,8 +2,8 @@
   <div>
     <input type="text" v-on:change="handleSubmit">
     <ul>
-        <li v-for="article in articles" :key="article.id">
-            {{article}}
+        <li v-for="story in articles" :key="story.id">
+            <router-link :to="`/article/${encodeURIComponent(story._id)}`">{{story}}</router-link>
         </li>
     </ul>
   </div>
