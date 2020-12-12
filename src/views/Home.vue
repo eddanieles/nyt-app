@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" v-on:change="handleSubmit">
+    <!-- <input type="text" v-on:change="handleSubmit"> -->
     <ul>
         <li v-for="article in articles" :key="article.id">
 
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { getArticles } from '../services/ApiService'
+// import { getArticles } from '../services/ApiService'
 
 export default {
     name: 'Home',
@@ -20,11 +20,11 @@ export default {
         }
     },
     methods: {
-        handleSubmit(event) {
-            let query = event.target.value;
-            this.articles = getArticles(query);
-            console.log(this.articles)
-        }
+        // handleSubmit(event) {
+        //     let query = event.target.value;
+        //     this.articles = getArticles(query);
+        //     console.log(this.articles)
+        // }
     }
 
 }
