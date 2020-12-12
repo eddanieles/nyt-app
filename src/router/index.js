@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import Params from '../views/Params'
+import Article from '../views/Article'
 
 Vue.use(VueRouter)
 
@@ -12,6 +13,10 @@ const routes = [{
     {
         path: '/params',
         component: Params
+    },
+    {
+        path: '/article/:id',
+        component: Article
     }
 ]
 
