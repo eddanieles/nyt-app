@@ -12,7 +12,10 @@ const routes = [{
     },
     {
         path: '/params',
-        component: Params
+        component: Params,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/article/:id',
