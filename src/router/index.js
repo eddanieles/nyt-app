@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import Params from '../views/Params'
 import Article from '../views/Article'
+import Login from '../components/Login'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,10 @@ const routes = [{
     {
         path: '/article/:id',
         component: Article
+    },
+    {
+        path: '/login',
+        component: Login
     }
 ]
 
