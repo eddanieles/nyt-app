@@ -1,16 +1,16 @@
 <template>
   <div>
-    <input type="text" v-on:change="handleSubmit">
+    <input placeholder="find articles..." type="text" v-on:change="handleSubmit">
     <ul>
         <li v-for="article in articles" :key="article.id">
-            <router-link :to="`/article/${encodeURIComponent(article._id)}`">
-                <p>{{article.headline.main === "No Headline" ? null : article.headline.main}}</p>
-                <p>{{article.byline.person.length >= 1 ? article.byline.person.map(person => {
-                            return `${person.firstname} ${person.lastname}`
-                        }) : null
+            <router-link :to="`/article/${encodeURIComponent(article.uri)}`">
+                <p>{{article.title ? article.title : article.headline.main}}</p>
+                <p>{{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
+                        return `${author.firstname} ${author.lastname}`
+                    })
                     }}
                 </p>
-                <p>{{article.abstract ? article.abstract : "sorry, empty article"}}</p>
+                <p>{{article.abstract}}</p>
             </router-link>
         </li>
     </ul>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { getArticles } from '../services/ApiService'
+import { getArticles, getHomePage } from '../services/ApiService'
 
 export default {
     name: 'Home',
@@ -31,14 +31,15 @@ export default {
         handleSubmit(event) {
             let searchText = event.target.value;
             getArticles(searchText).then(value => {
+                console.log(value);
                 this.articles = value.data.response.docs;
             });
         }
     },
     created() {
-        getArticles("headlines").then(value => {
-                this.articles = value.data.response.docs;
-                console.log(this.articles);
+        getHomePage().then(value => {
+            console.log(value);
+            this.articles = value.data.results;
         });
     }
 }
