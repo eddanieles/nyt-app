@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import { auth } from './firebase'
+import store from './store/index'
+import './assets/scss/app.scss'
 
 Vue.config.productionTip = false
 
@@ -20,6 +22,7 @@ auth.onAuthStateChanged(() => {
     if (!app) {
         new Vue({
             router,
+            store,
             render: h => h(App),
         }).$mount('#app')
     }
