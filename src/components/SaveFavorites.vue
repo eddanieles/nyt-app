@@ -28,6 +28,7 @@ export default {
             this.$store.dispatch('createFavorite', {
                 articleId : this.$route.params.id
             })
+            this.forceRerender();
         },
         async checkFavorites() {
             let that = this;
@@ -45,6 +46,9 @@ export default {
                 .catch(function(error) {
                     console.log("Error getting documents: ", error);
                 });
+        },
+        forceRerender() {
+            this.checkFavorites();
         }
     },
     beforeMount() {

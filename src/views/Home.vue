@@ -1,19 +1,29 @@
 <template>
   <div>
     <input placeholder="find articles..." type="text" v-on:change="handleSubmit">
-    <ul>
-        <li v-for="article in articles" :key="article.id">
-            <router-link :to="`/article/${encodeURIComponent(article.uri)}`">
-                <p class="title">{{article.title ? article.title : article.headline.main}}</p>
-                <p class="authors">{{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
-                        return `${author.firstname} ${author.lastname}`
-                    })
-                    }}
-                </p>
-                <p>{{article.abstract}}</p>
-            </router-link>
-        </li>
-    </ul>
+    <div>
+
+    </div>
+    <div v-if="!showNoArticlesFound">
+        <ul>
+            <li v-for="article in articles" :key="article.id">
+                <router-link :to="`/article/${encodeURIComponent(article.uri)}`">
+                    <p class="title">{{article.title ? article.title : article.headline.main}}</p>
+                    <p class="authors">
+                        {{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
+                                return `${author.firstname} ${author.lastname}`
+                            })
+                        }}
+                    </p>
+                    <p>{{article.abstract}}</p>
+                </router-link>
+            </li>
+        </ul>
+    </div>
+    <div v-else-if="showNoArticlesFound">
+        <p id="articlesNotFound">Sorry, no articles were found for "{{searchText}}".</p>
+        <p>Please search again.</p>
+    </div>
   </div>
 </template>
 
@@ -24,15 +34,18 @@ export default {
     name: 'Home',
     data() {
         return {
-            articles: []
+            articles: [],
+            showNoArticlesFound: false,
+            searchText: ""
         }
     },
     methods: {
         handleSubmit(event) {
-            let searchText = event.target.value;
-            getArticles(searchText).then(value => {
+            this.searchText = event.target.value;
+            getArticles(this.searchText).then(value => {
                 console.log(value);
                 this.articles = value.data.response.docs;
+                this.articles.length > 0 ? this.showNoArticlesFound = false : this.showNoArticlesFound = true;
             });
         }
     },
@@ -52,5 +65,9 @@ export default {
     li {
         border: 1px solid black;
         margin: 10px;
+    }
+    #articlesNotFound {
+        font-size: xx-large;
+        font-style: italic;
     }
 </style>
