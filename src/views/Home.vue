@@ -4,8 +4,8 @@
     <ul>
         <li v-for="article in articles" :key="article.id">
             <router-link :to="`/article/${encodeURIComponent(article.uri)}`">
-                <p>{{article.title ? article.title : article.headline.main}}</p>
-                <p>{{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
+                <p class="title">{{article.title ? article.title : article.headline.main}}</p>
+                <p class="authors">{{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
                         return `${author.firstname} ${author.lastname}`
                     })
                     }}
