@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <p>Logged in as: {{currentUser.email}}</p>
+    <p v-if="currentUser">{{currentUser.email}} <a id="logout" @click="logout()">(logout)</a></p>
     <img alt="Vue logo" src="./assets/logo.png">
     <router-view/>
   </div>
@@ -14,6 +14,11 @@ export default {
   data() {
     return {
       currentUser: {}
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
     }
   },
   mounted() {
@@ -30,5 +35,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#logout {
+  font-size: x-small;
 }
 </style>

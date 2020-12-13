@@ -4,7 +4,7 @@
         <div v-if="currentUser">
             <button v-on:click="saveToFavorites()">Save To Favorites</button>
         </div>
-        <div v-else>
+        <div v-else-if="!currentUser">
             <router-link to="/login">Sign in to save article.</router-link>
         </div>
     </div>
@@ -62,7 +62,7 @@ export default {
         }
     },
     beforeMount() {
-        this.checkFavorites();
+        auth.currentUser ? this.checkFavorites() : null;
     }
 }
 </script>

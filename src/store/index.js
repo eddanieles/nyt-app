@@ -46,6 +46,16 @@ const store = new Vuex.Store({
             // change route to dashboard
             router.push('/')
         },
+        async logout({ commit }) {
+            // log user out
+            await fb.auth.signOut()
+
+            // clear user data from state
+            commit('setUserProfile', {})
+
+            // redirect to login view
+            router.push('/login')
+        },
         async createFavorite({ commit }, articleId) {
             console.log(commit);
             // create post in firebase
