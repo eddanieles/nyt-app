@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <p v-if="currentUser">{{currentUser.email}} <a id="logout" @click="logout()">(logout)</a></p>
-    <img alt="Vue logo" src="./assets/logo.png">
+    <p v-else><router-link to="/login">Click here to login.</router-link></p>
+    <router-link to="/"><img alt="Vue logo" src="./assets/logo.png"></router-link>
     <router-view/>
   </div>
 </template>
