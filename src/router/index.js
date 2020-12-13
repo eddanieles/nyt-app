@@ -4,6 +4,7 @@ import Home from '../views/Home'
 import Params from '../views/Params'
 import Article from '../views/Article'
 import Login from '../components/Login'
+import Favorites from '../views/Favorites'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,13 @@ const routes = [{
     {
         path: '/article/:id',
         component: Article
+    },
+    {
+        path: '/profile/favorites/',
+        component: Favorites,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/login',

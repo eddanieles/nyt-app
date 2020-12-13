@@ -10,7 +10,9 @@
     <p>{{article.lead_paragraph}} 
         <a v-bind:href="`${article.web_url}`">...read full article</a>
     </p>
-    <button>Save</button>
+    <router-link :to="`/profile/favorites`">
+        <button v-on="{click:handleClick}">Save To Favorites</button>
+    </router-link>
   </div>
 </template>
 
@@ -37,12 +39,14 @@ export default {
                 this.article = value.data.response.docs[0];
                 console.log(this.article);
             })
+        },
+        handleClick() {
+            console.log(this.$route.params.id)
         }
     },
     mounted() {
         this.initializeArticle();
     }
-
 }
 </script>
 

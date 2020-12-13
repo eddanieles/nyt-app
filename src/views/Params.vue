@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     fetchData () {
-        getArticles("headlines").then(value => {
+        getArticles("kin insurance").then(value => {
             this.articles = value.data.response.docs;
         })
     }
