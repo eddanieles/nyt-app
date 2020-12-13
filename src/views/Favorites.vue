@@ -29,6 +29,7 @@ export default {
     },
     methods: {
         async getFavorites() {
+            if (!auth.currentUser) return;
             const docs = await favoritesCollection.where('userId', '==', auth.currentUser.uid).get();
             this.favorites = docs.docs.map(doc => {
                 let renderedObj = doc.data();
