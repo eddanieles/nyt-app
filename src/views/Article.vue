@@ -3,11 +3,12 @@
     <Article />
     <div v-if="showFavoriteButton">
         <router-link :to="`/profile/favorites`">
-            <button v-if="showFavoriteButton" v-on:click="saveToFavorites()">Save To Favorites</button>
+            <button v-on:click="saveToFavorites()">Save To Favorites</button>
         </router-link>
     </div>
     <div v-else>
         <p class="saved">saved on: {{savedDate}}</p>
+        <!-- <button>Remove from Favorites</button> -->
     </div>
   </div>
 </template>
