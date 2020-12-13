@@ -7,7 +7,7 @@
         </router-link>
     </div>
     <div v-else>
-        <p class="saved">Saved on: {{savedDate}}</p>
+        <p class="saved">saved on: {{savedDate}}</p>
     </div>
   </div>
 </template>
