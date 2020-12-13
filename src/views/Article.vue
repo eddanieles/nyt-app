@@ -17,7 +17,7 @@ export default {
     methods: {
         saveToFavorites() {
             this.$store.dispatch('createFavorite', {
-                article: this.article
+                articleId : this.$route.params.id
             })
         }
     }

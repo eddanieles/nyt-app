@@ -21,7 +21,8 @@ const routes = [{
     },
     {
         path: '/article/:id',
-        component: Article
+        component: Article,
+        props: true
     },
     {
         path: '/profile/favorites/',
