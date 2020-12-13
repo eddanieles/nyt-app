@@ -1,19 +1,19 @@
 <template>
   <div>
     <div v-if="showFavoriteButton">
-        <router-link :to="`/profile/favorites`">
-            <button v-on:click="saveToFavorites()">Save To Favorites</button>
-        </router-link>
+        <button v-on:click="saveToFavorites()">Save To Favorites</button>
     </div>
     <div v-else>
         <p class="saved">saved on: {{savedDate}}</p>
-        <button>Remove from Favorites</button>
+        <span>Remove from Favorites</span><br>
+        <router-link :to="`/profile/favorites`">Go To Favorites</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import { auth, db } from '../firebase'
+import { favoritesCollection } from '@/firebase'
+import { auth } from '../firebase'
 import moment from 'moment'
 
 export default {
@@ -31,7 +31,7 @@ export default {
         },
         async checkFavorites() {
             let that = this;
-            db.collection("favorites").where("userId", "==", auth.currentUser.uid)
+            favoritesCollection.where("userId", "==", auth.currentUser.uid)
                 .get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
