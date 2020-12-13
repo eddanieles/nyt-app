@@ -11,7 +11,7 @@
         <a v-bind:href="`${article.web_url}`">...read full article</a>
     </p>
     <router-link :to="`/profile/favorites`">
-        <button v-on="{click:handleClick}">Save To Favorites</button>
+        <button v-on:click="saveToFavorites()">Save To Favorites</button>
     </router-link>
   </div>
 </template>
@@ -40,8 +40,10 @@ export default {
                 console.log(this.article);
             })
         },
-        handleClick() {
-            console.log(this.$route.params.id)
+        saveToFavorites() {
+            this.$store.dispatch('createFavorite', {
+                article: this.article
+            })
         }
     },
     mounted() {
