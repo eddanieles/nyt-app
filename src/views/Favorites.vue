@@ -4,7 +4,7 @@
       <ul>
         <li v-for="favorite in favorites" :key="favorite.id">
             <router-link :to="`/article/${encodeURIComponent(favorite.articleId)}`">
-                <Article :id="`${favorite.articleId}`"/>
+                <article-display :id="`${favorite.articleId}`"/>
                 <p class="saved">saved on: {{favorite.date}}</p>
             </router-link>
         </li>  
@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import Article from '../components/Article'
 import { favoritesCollection } from '@/firebase'
 import { auth } from '../firebase'
 import moment from 'moment'
+import ArticleDisplay from '../components/ArticleDisplay.vue'
 
 export default {
     data() {
@@ -25,7 +25,7 @@ export default {
         }
     },
     components: {
-        Article
+        ArticleDisplay,
     },
     methods: {
         async getFavorites() {

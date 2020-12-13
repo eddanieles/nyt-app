@@ -17,7 +17,7 @@
 import { getArticle } from '../services/ApiService'
 
 export default {
-    name: 'Article',
+    name: 'ArticleDisplay',
     data() {
         return {
             article: { 

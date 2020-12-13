@@ -1,18 +1,18 @@
 <template>
   <div>
-    <Article />
-    <save-favorites/>
+    <article-display />
+    <save-favorites />
   </div>
 </template>
 
 <script>
-import Article from '../components/Article'
+import ArticleDisplay from '../components/ArticleDisplay.vue'
 import SaveFavorites from '../components/SaveFavorites'
 
 export default {
     components: {
-        Article,
-        SaveFavorites
+        SaveFavorites,
+        ArticleDisplay,
     }
 }
 </script>
