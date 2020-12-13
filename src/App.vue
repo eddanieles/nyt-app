@@ -1,14 +1,24 @@
 <template>
   <div id="app">
+    <p>Logged in as: {{currentUser.email}}</p>
     <img alt="Vue logo" src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
 
 <script>
+import { auth } from './firebase'
 
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      currentUser: {}
+    }
+  },
+  mounted() {
+    this.currentUser = auth.currentUser;
+  }
 }
 </script>
 
