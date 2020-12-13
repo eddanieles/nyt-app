@@ -1,7 +1,12 @@
 <template>
   <div>
     <div v-if="showFavoriteButton">
-        <button v-on:click="saveToFavorites()">Save To Favorites</button>
+        <div v-if="currentUser">
+            <button v-on:click="saveToFavorites()">Save To Favorites</button>
+        </div>
+        <div v-else>
+            <router-link to="/login">Sign in to save article.</router-link>
+        </div>
     </div>
     <div v-else>
         <p class="saved">saved on: {{savedDate}}</p>
@@ -19,12 +24,17 @@ import moment from 'moment'
 export default {
     data() {
         return {
+            currentUser: true,
             showFavoriteButton: true,
             savedDate: ""
         }
     },
     methods: {
         saveToFavorites() {
+            if (!auth.currentUser) {
+                this.currentUser = false;
+                return
+            }
             this.$store.dispatch('createFavorite', {
                 articleId : this.$route.params.id
             })

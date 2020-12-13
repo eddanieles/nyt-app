@@ -49,7 +49,6 @@ const store = new Vuex.Store({
         async createFavorite({ commit }, articleId) {
             console.log(commit);
             // create post in firebase
-            console.log(articleId.articleId);
             await fb.favoritesCollection.add({
                 createdOn: new Date(),
                 articleId: articleId.articleId,
