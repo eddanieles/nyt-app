@@ -17,7 +17,7 @@
             <label for="password1">Password</label>
             <input v-model.trim="loginForm.password" type="password" placeholder="******" id="password1" />
           </div>
-            <button class="button">Log In</button>
+            <button @click="login()" class="button">Log In</button>
             <div class="extras">
                 <a>Forgot Password</a>
                 <a @click="toggleForm()">Create an Account</a>
