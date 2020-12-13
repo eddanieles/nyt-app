@@ -7,7 +7,7 @@
                         
             }}
         </p>
-        <p>{{article.lead_paragraph}} 
+        <p>{{article.snippet || article.lead_paragraph}} 
             <a v-bind:href="`${article.web_url}`">...read full article</a>
         </p>
     </div>
