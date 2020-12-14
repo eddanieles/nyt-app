@@ -1,15 +1,20 @@
 <template>
     <div>
         <p class="title">{{article.title ? article.title : article.headline.main ? article.headline.main : null}}</p>
-        <p class="authors">written by: {{article.byline.person.length >= 1 ? article.byline.person.map(person => {
-                                return `${person.firstname} ${person.lastname}`
-                            }) : typeof article.byline === "string" ? article.byline : null
-                        
+        <p class="authors">
+            {{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
+                    return `${author.firstname} ${author.lastname}`
+                })
             }}
         </p>
-        <p><img class="article-image" v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt=""></p>
-        <p>{{article.snippet || article.lead_paragraph}} 
-            <a v-bind:href="`${article.web_url}`">...read full article</a>
+        <div v-if="article.multimedia[0].url">
+            <img v-if="/^http/.test(article.multimedia[0].url)" class="article-image" v-bind:src="`${article.multimedia[0].url}`" alt="">
+            <img v-else class="article-image" v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt="">
+        </div>
+        <div v-else>
+        </div>
+        <p>{{article.snippet || article.lead_paragraph || article.abstract}} 
+            <a target="_blank" v-bind:href="`${article.web_url}`">...read full article</a>
         </p>
     </div>
 </template>
@@ -29,21 +34,23 @@ export default {
                     main : ""
                 },
                 multimedia : [
-                    { url: "images/2020/10/21/us/politics/21lebron/merlin_178385838_8408c0b8-f624-4655-ab17-65dc03e1da45-articleLarge.jpg" }
+                    { url: "https://mwcm.nyt.com/.resources/mkt-wcm/dist/libs/assets/img/logo-nyt-header.svg" }
                 ]
             }
         }
     },
     methods: {
-        async initializeArticle() {
+        initializeArticle() {
             let url = this.$route.params.id || this.$props.id;
-            await getArticle(url).then(value => {
+            getArticle(url).then(value => {
                 this.article = value.data.response.docs[0];
+                this.article.multimedia.length > 0 ? this.article.multimedia : this.article.multimedia = [{ url: "" }];
                 console.log(this.article);
             })
         }
     },
-    mounted() {
+    beforeMount() {
+        this.$route.path === "/" ? console.log(this.$route.path === "/") : console.log(this.$route.path);
         this.initializeArticle();
     },
     props: [

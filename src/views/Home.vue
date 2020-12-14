@@ -15,7 +15,15 @@
                             })
                         }}
                     </p>
-                    <p>{{article.abstract}}</p>
+                    <div v-if="article.multimedia[0].url">
+                        <img v-if="/^http/.test(article.multimedia[0].url)" class="article-image" v-bind:src="`${article.multimedia[0].url}`" alt="">
+                        <img v-else class="article-image" v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt="">
+                    </div>
+                    <div v-else>
+                    </div>
+                    <p>{{article.snippet || article.lead_paragraph || article.abstract}} 
+                        <a target="_blank" v-bind:href="`${article.web_url}`">...read full article</a>
+                    </p>
                 </router-link>
             </li>
         </ul>
@@ -51,9 +59,8 @@ export default {
     },
     created() {
         getHomePage().then(value => {
-            console.log(value);
             this.articles = value.data.results;
-        });
+        })
     }
 }
 </script>
