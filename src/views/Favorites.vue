@@ -4,7 +4,11 @@
       <ul>
         <li v-for="favorite in favorites" :key="favorite.id">
             <router-link :to="`/article/${encodeURIComponent(favorite.articleId)}`">
-                <article-display :id="`${favorite.articleId}`"/>
+                <p>{{favorite.articleTitle}}</p>
+                <p>
+                    <img v-if="/^http/.test(favorite.articleMedia[0].url)" class="article-image" v-bind:src="`${favorite.articleMedia[0].url}`" alt="">
+                    <img v-else class="article-image" v-bind:src="`https://www.nytimes.com/${favorite.articleMedia[0].url}`" alt="">
+                </p>
                 <p class="saved">saved on: {{favorite.date}}</p>
             </router-link>
         </li>  
@@ -16,16 +20,12 @@
 import { favoritesCollection } from '@/firebase'
 import { auth } from '../firebase'
 import moment from 'moment'
-import ArticleDisplay from '../components/ArticleDisplay.vue'
 
 export default {
     data() {
         return {
             favorites: []
         }
-    },
-    components: {
-        ArticleDisplay,
     },
     methods: {
         async getFavorites() {

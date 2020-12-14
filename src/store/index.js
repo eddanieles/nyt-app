@@ -57,12 +57,14 @@ const store = new Vuex.Store({
             router.push('/login')
         },
         async createFavorite({ commit }, articleId) {
-            console.log(commit);
-            // create post in firebase
+            console.log(commit)
+                // create post in firebase
             await fb.favoritesCollection.add({
                 createdOn: new Date(),
                 articleId: articleId.articleId,
-                userId: fb.auth.currentUser.uid
+                userId: fb.auth.currentUser.uid,
+                articleMedia: articleId.articleMedia,
+                articleTitle: articleId.articleTitle
             })
         }
     }

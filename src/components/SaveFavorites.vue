@@ -20,13 +20,15 @@
 import { favoritesCollection } from '@/firebase'
 import { auth } from '../firebase'
 import moment from 'moment'
+import { getArticle } from '../services/ApiService'
 
 export default {
     data() {
         return {
             currentUser: true,
             showFavoriteButton: true,
-            savedDate: ""
+            savedDate: "",
+            article: {}
         }
     },
     methods: {
@@ -36,7 +38,9 @@ export default {
                 return
             }
             this.$store.dispatch('createFavorite', {
-                articleId : this.$route.params.id
+                articleId : this.$route.params.id,
+                articleMedia: this.article.multimedia,
+                articleTitle: this.article.title ? this.article.title : this.article.headline.main ? this.article.headline.main : null
             })
             this.forceRerender();
         },
@@ -63,6 +67,13 @@ export default {
     },
     beforeMount() {
         auth.currentUser ? this.checkFavorites() : null;
+    },
+    mounted() {
+        let that = this;
+        getArticle(this.$route.params.id).then(value => {
+            that.article = value.data.response.docs[0];
+            that.article.multimedia.length > 0 ? that.article.multimedia : that.article.multimedia = [{ url: "" }];
+        })
     }
 }
 </script>
