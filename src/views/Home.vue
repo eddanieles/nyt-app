@@ -15,7 +15,7 @@
                             })
                         }}
                     </p>
-                    <div v-if="article.multimedia[0].url">
+                    <div v-if="article.multimedia.length > 0 && article.multimedia[0].url">
                         <img v-if="/^http/.test(article.multimedia[0].url)" class="article-image" v-bind:src="`${article.multimedia[0].url}`" alt="">
                         <img v-else class="article-image" v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt="">
                     </div>
