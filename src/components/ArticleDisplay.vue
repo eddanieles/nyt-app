@@ -7,6 +7,7 @@
                         
             }}
         </p>
+        <p><img v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt=""></p>
         <p>{{article.snippet || article.lead_paragraph}} 
             <a v-bind:href="`${article.web_url}`">...read full article</a>
         </p>
@@ -26,14 +27,17 @@ export default {
                 }, 
                 headline : {
                     main : ""
-                }
+                },
+                multimedia : [
+                    { url: "images/2020/10/21/us/politics/21lebron/merlin_178385838_8408c0b8-f624-4655-ab17-65dc03e1da45-articleLarge.jpg" }
+                ]
             }
         }
     },
     methods: {
-        initializeArticle() {
+        async initializeArticle() {
             let url = this.$route.params.id || this.$props.id;
-            getArticle(url).then(value => {
+            await getArticle(url).then(value => {
                 this.article = value.data.response.docs[0];
                 console.log(this.article);
             })
