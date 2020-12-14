@@ -10,8 +10,8 @@
     </div>
     <div v-else>
         <p class="saved">saved on: {{savedDate}}</p>
-        <span>Remove from Favorites</span><br>
-        <router-link :to="`/profile/favorites`">Go To Favorites</router-link>
+        <button v-on:click="deleteFromFavorites()">Remove from Favorites</button>
+        <p><router-link :to="`/profile/favorites`">Go To Favorites</router-link></p>
     </div>
   </div>
 </template>
@@ -28,7 +28,8 @@ export default {
             currentUser: true,
             showFavoriteButton: true,
             savedDate: "",
-            article: {}
+            article: {},
+            createdDate: {}
         }
     },
     methods: {
@@ -44,6 +45,16 @@ export default {
             })
             this.forceRerender();
         },
+        deleteFromFavorites() {
+            this.$store.dispatch('deleteFavorite', {
+                userId: auth.currentUser.uid,
+                articleId : this.$route.params.id,
+                // articleMedia: this.article.multimedia,
+                // createdOn: this.createdDate,
+                // articleTitle: this.article.title ? this.article.title : this.article.headline.main ? this.article.headline.main : null
+            })
+            this.forceRerender();
+        },
         async checkFavorites() {
             let that = this;
             favoritesCollection.where("userId", "==", auth.currentUser.uid)
@@ -54,6 +65,7 @@ export default {
                         if (doc.data().articleId === that.$route.params.id) {
                             that.showFavoriteButton = !that.showFavoriteButton; 
                             that.savedDate = moment(doc.data().createdOn.toDate()).format("MM/DD/YYYY");
+                            that.createdDate = doc.data().createdOn;
                         }
                     })
                 })

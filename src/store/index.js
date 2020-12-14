@@ -66,6 +66,18 @@ const store = new Vuex.Store({
                 articleMedia: articleId.articleMedia,
                 articleTitle: articleId.articleTitle
             })
+        },
+        async deleteFavorite({ commit }, articleId) {
+            console.log(commit)
+                // delete post in firebase
+            await fb.favoritesCollection.where('userId', '==', articleId.userId).get()
+                .then(querySnapshot => {
+                    querySnapshot.forEach(doc => {
+                        if (doc.data().articleId === articleId.articleId) {
+                            doc.ref.delete()
+                        }
+                    })
+                })
         }
     }
 })
