@@ -5,10 +5,12 @@
         <li v-for="favorite in favorites" :key="favorite.id">
             <router-link :to="`/article/${encodeURIComponent(favorite.articleId)}`">
                 <p>{{favorite.articleTitle}}</p>
-                <p>
+                <div v-if="favorite.articleMedia.length > 0 && favorite.articleMedia[0].url">
                     <img v-if="/^http/.test(favorite.articleMedia[0].url)" class="article-image" v-bind:src="`${favorite.articleMedia[0].url}`" alt="">
                     <img v-else class="article-image" v-bind:src="`https://www.nytimes.com/${favorite.articleMedia[0].url}`" alt="">
-                </p>
+                </div>
+                <div v-else>
+                </div>
                 <p class="saved">saved on: {{favorite.date}}</p>
             </router-link>
         </li>  
