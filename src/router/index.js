@@ -10,7 +10,8 @@ Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
-        component: Home
+        component: Home,
+        props: true
     },
     {
         path: '/params',

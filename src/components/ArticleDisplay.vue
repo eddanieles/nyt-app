@@ -54,7 +54,7 @@ export default {
             }
         }
     },
-    beforeMount() {
+    mounted() {
         this.initializeArticle();
     },
     props: [
