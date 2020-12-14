@@ -41,20 +41,26 @@ export default {
     },
     methods: {
         initializeArticle() {
-            let url = this.$route.params.id || this.$props.id;
-            getArticle(url).then(value => {
-                this.article = value.data.response.docs[0];
-                this.article.multimedia.length > 0 ? this.article.multimedia : this.article.multimedia = [{ url: "" }];
-                console.log(this.article);
-            })
+            let that = this;
+            console.log(this.$props.articleObj);
+            if (this.$props.articleObj) {
+                that.article = that.$props.articleObj;
+            } else if (this.$route.params.id || this.$props.id) {
+                let url = that.$route.params.id || that.$props.id;
+                getArticle(url).then(value => {
+                    that.article = value.data.response.docs[0];
+                    that.article.multimedia.length > 0 ? that.article.multimedia : that.article.multimedia = [{ url: "" }];
+                    console.log(this.article);
+                })
+            }
         }
     },
     beforeMount() {
-        this.$route.path === "/" ? console.log(this.$route.path === "/") : console.log(this.$route.path);
         this.initializeArticle();
     },
     props: [
-        "id"
+        "id",
+        "articleObj"
     ]
 }
 </script>
