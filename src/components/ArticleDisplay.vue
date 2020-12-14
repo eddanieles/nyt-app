@@ -42,7 +42,6 @@ export default {
     methods: {
         initializeArticle() {
             let that = this;
-            console.log(this.$props.articleObj);
             if (this.$props.articleObj) {
                 that.article = that.$props.articleObj;
             } else if (this.$route.params.id || this.$props.id) {
