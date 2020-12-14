@@ -7,7 +7,7 @@
                         
             }}
         </p>
-        <p><img v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt=""></p>
+        <p><img class="article-image" v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt=""></p>
         <p>{{article.snippet || article.lead_paragraph}} 
             <a v-bind:href="`${article.web_url}`">...read full article</a>
         </p>
@@ -56,8 +56,11 @@ export default {
 .title {
     font-size: large;
 }
-
 .authors {
     font-size: small;
+}
+.article-image {
+    height: 200px;
+    width: 200px;
 }
 </style>
