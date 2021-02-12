@@ -22,12 +22,16 @@
 import { favoritesCollection } from '@/firebase'
 import { auth } from '../firebase'
 import moment from 'moment'
+import { mapState } from 'vuex'
 
 export default {
     data() {
         return {
             favorites: []
         }
+    },
+    computed: {
+        ...mapState(['userProfile']),
     },
     methods: {
         async getFavorites() {
@@ -42,6 +46,7 @@ export default {
     },
     beforeMount() {
         this.getFavorites();
+        console.log("inside Favorites: " + JSON.stringify(this.userProfile))
     }
 }
 </script>

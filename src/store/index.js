@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     mutations: {
         setUserProfile(state, val) {
             state.userProfile = val
+            console.log("in setUserProfile: " + state.userProfile)
         }
     },
     actions: {
@@ -40,8 +41,9 @@ const store = new Vuex.Store({
             // fetch user profile
             const userProfile = await fb.usersCollection.doc(user.uid).get()
 
-            // set user profile in state
+            // set user profile in state        
             commit('setUserProfile', userProfile.data())
+            console.log("in fetchUserProfile: " + userProfile.data());
 
             // change route to dashboard
             router.push('/')
@@ -52,6 +54,7 @@ const store = new Vuex.Store({
 
             // clear user data from state
             commit('setUserProfile', {})
+            console.log("in login: ");
 
             // redirect to login view
             router.push('/login')
