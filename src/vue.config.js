@@ -1,4 +1,6 @@
 module.exports = {
+    publicPath: process.env.NODE_ENV === 'production' ?
+        '/nyt-app/' : '/',
     chainWebpack: config => {
         config.module.rules.delete("svg");
     },
