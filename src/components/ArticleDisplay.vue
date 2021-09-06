@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p class="title">{{article.title ? article.title : article.headline.main ? article.headline.main : null}}</p>
-        <p class="authors">
+        <p>{{article.title ? article.title : article.headline.main ? article.headline.main : null}}</p>
+        <p>
             {{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
                     return `${author.firstname} ${author.lastname}`
                 })
@@ -65,12 +65,6 @@ export default {
 </script>
 
 <style>
-.title {
-    font-size: large;
-}
-.authors {
-    font-size: small;
-}
 .article-image {
     height: 200px;
     width: 200px;

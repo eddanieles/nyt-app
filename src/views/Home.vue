@@ -5,28 +5,31 @@
 
     </div>
     <div v-if="!showNoArticlesFound">
-        <ul>
-            <li v-for="article in articles" :key="article.id">
-                <router-link :to="`/article/${encodeURIComponent(article.uri)}`">
-                    <p class="title">{{article.title ? article.title : article.headline.main ? article.headline.main : null}}</p>
-                    <p class="authors">
-                        {{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
-                                return `${author.firstname} ${author.lastname}`
-                            })
-                        }}
-                    </p>
+        <div v-for="article in articles" :key="article.id" class="border border-black rounded m-8">
+            <router-link :to="`/article/${encodeURIComponent(article.uri)}`">
+                <div class="flex flex-row">
                     <div v-if="article.multimedia.length > 0 && article.multimedia[0].url">
                         <img v-if="/^http/.test(article.multimedia[0].url)" class="article-image" v-bind:src="`${article.multimedia[0].url}`" alt="">
                         <img v-else class="article-image" v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt="">
                     </div>
-                    <div v-else>
+                    <div class="text-center relative">
+                        <div class="text-3xl mb-3 font-bold">{{article.title ? article.title : article.headline.main ? article.headline.main : null}}</div>
+                        <div class="text-xs mb-3">
+                            {{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
+                                    return `${author.firstname} ${author.lastname}`
+                                })
+                            }}
+                        </div>
+                        <div>
+                            {{article.snippet || article.lead_paragraph || article.abstract}} 
+                        </div>
+                        <div class="absolute bottom-0 right-0">
+                            <a class="text-xs" target="_blank" v-bind:href="`${article.web_url}`">...read full article</a>
+                        </div>
                     </div>
-                    <p>{{article.snippet || article.lead_paragraph || article.abstract}} 
-                        <a target="_blank" v-bind:href="`${article.web_url}`">...read full article</a>
-                    </p>
-                </router-link>
-            </li>
-        </ul>
+                </div>
+            </router-link>
+        </div>
     </div>
     <div v-else-if="showNoArticlesFound">
         <p id="articlesNotFound">Sorry, no articles were found for "{{searchText}}".</p>
@@ -69,13 +72,6 @@ export default {
 </script>
 
 <style>
-    ul {
-        list-style-type: none;
-    }
-    li {
-        border: 1px solid black;
-        margin: 10px;
-    }
     #articlesNotFound {
         font-size: xx-large;
         font-style: italic;
