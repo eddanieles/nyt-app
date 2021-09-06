@@ -4,15 +4,15 @@
     <div>
 
     </div>
-    <div v-if="!showNoArticlesFound">
-        <div v-for="article in articles" :key="article.id" class="border border-black rounded m-8">
+    <div v-if="!showNoArticlesFound" class="grid grid-cols-3">
+        <div v-for="article in articles" :key="article.id" class="m-8">
             <router-link :to="`/article/${encodeURIComponent(article.uri)}`">
-                <div class="flex flex-row">
+                <div class="flex flex-col">
                     <div v-if="article.multimedia.length > 0 && article.multimedia[0].url">
-                        <img v-if="/^http/.test(article.multimedia[0].url)" class="article-image" v-bind:src="`${article.multimedia[0].url}`" alt="">
-                        <img v-else class="article-image" v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt="">
+                        <img v-if="/^http/.test(article.multimedia[0].url)" class="w-full h-56" v-bind:src="`${article.multimedia[0].url}`" alt="">
+                        <img v-else v-bind:src="`https://www.nytimes.com/${article.multimedia[0].url}`" alt="">
                     </div>
-                    <div class="text-center relative">
+                    <div class="text-center">
                         <div class="text-3xl mb-3 font-bold">{{article.title ? article.title : article.headline.main ? article.headline.main : null}}</div>
                         <div class="text-xs mb-3">
                             {{typeof article.byline === "string" ? article.byline : article.byline.person.map(author => {
@@ -23,12 +23,14 @@
                         <div>
                             {{article.snippet || article.lead_paragraph || article.abstract}} 
                         </div>
-                        <div class="absolute bottom-0 right-0">
-                            <a class="text-xs" target="_blank" v-bind:href="`${article.web_url}`">...read full article</a>
-                        </div>
                     </div>
                 </div>
             </router-link>
+            <div class="relative">
+                <div class="absolute top-0 right-0">
+                    <a class="text-xs" target="_blank" v-bind:href="`${article.web_url}`">...read full article</a>
+                </div>
+            </div>
         </div>
     </div>
     <div v-else-if="showNoArticlesFound">
